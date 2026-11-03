@@ -9,26 +9,32 @@
   header { background: #fff; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
   header h1 { margin: 0; font-size: 22px; color: #4a2c2a; letter-spacing: 1px; }
   .cart-btn { background: #4a2c2a; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; font-weight: bold; }
-  .cats { display: flex; justify-content: center; gap: 10px; padding: 15px; background: #fff; overflow-x: auto; border-bottom: 1px solid #eee; }
-  .cats button { background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.3s; }
-  .cats button.on { background: #4a2c2a; color: #fff; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
-  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }
-  .card:hover { transform: translateY(-5px); }
-  .img { height: 320px; background-size: cover; background-position: center; position: relative; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; }
-  .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }
-  .info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 25px; max-width: 1000px; margin: auto; }
+  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+  
+  /* Image Slider Styles */
+  .slider-container { position: relative; height: 380px; background: #e5e5e5; overflow: hidden; }
+  .slider-track { display: flex; height: 100%; transition: transform 0.4s ease-in-out; }
+  .slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; }
+  .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; z-index: 2; }
+  
+  /* Slider Dots */
+  .slider-dots { position: absolute; bottom: 12px; width: 100%; display: flex; justify-content: center; gap: 6px; z-index: 2; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: 0.3s; }
+  .dot.active { background: #fff; width: 20px; border-radius: 4px; }
+
+  .info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
   .info h3 { margin: 0 0 8px 0; font-size: 18px; color: #222; }
   .desc { font-size: 13px; color: #666; margin-bottom: 12px; line-height: 1.4; }
-  .price { font-size: 16px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+  .price { font-size: 18px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
   .price s { font-size: 13px; color: #888; font-weight: normal; }
-  .btn-actions { display: flex; gap: 8px; margin-top: auto; }
-  .add-to-cart { flex: 1; background: #4a2c2a; color: #fff; border: none; text-align: center; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; }
+  .btn-actions { display: flex; gap: 10px; margin-top: auto; }
+  .add-to-cart { flex: 1; background: #4a2c2a; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; }
   .add-to-cart:hover { background: #331d1b; }
-  .order-direct { flex: 1; background: #25d366; color: #fff; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .order-direct { flex: 1; background: #25d366; color: #fff; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
   .order-direct:hover { background: #1ebe5d; }
   
-  /* Cart Modal Styles */
+  /* Cart Modal */
   .modal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
   .modal-bg.open { display: flex; }
   .modal { background: #fff; width: 90%; max-width: 450px; border-radius: 12px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); max-height: 80vh; display: flex; flex-direction: column; }
@@ -44,8 +50,7 @@
   .modal-footer { border-top: 1px solid #eee; padding-top: 15px; display: flex; flex-direction: column; gap: 10px; }
   .total-price { display: flex; justify-content: space-between; font-size: 16px; font-weight: bold; }
   .checkout-btn { background: #25d366; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; cursor: pointer; }
-  .checkout-btn:hover { background: #1ebe5d; }
-
+  
   footer { text-align: center; padding: 30px; background: #fff; border-top: 1px solid #eee; margin-top: 40px; color: #555; }
   footer a { color: #25d366; text-decoration: none; font-weight: bold; }
 </style>
@@ -57,7 +62,6 @@
   <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
 </header>
 
-<div class="cats" id="cats"></div>
 <div class="grid" id="grid"></div>
 
 <!-- Cart Modal -->
@@ -86,136 +90,28 @@
 </footer>
 
 <script>
-const PRODUCTS = [
-  {
-    id: 1,
-    name: "Classic Winter Katrai Suit",
-    cat: "Winter Suits",
-    price: 4095,
-    oldPrice: 6500,
-    img: "dress1.png.jpg",
-    desc: "Premium quality winter katrai suit featuring exquisite warmth and elegant texture, perfect for cold weather styling."
-  },
-  {
-    id: 2,
-    name: "Luxury Winter Katrai Collection",
-    cat: "Winter Suits",
-    price: 4095,
-    oldPrice: 6500,
-    img: "dress2.png.jpg",
-    desc: "Sophisticated fine-grade katrai fabric designed with a graceful fall, combining cozy winter comfort with rich aesthetic appeal."
-  },
-  {
-    id: 3,
-    name: "Royal Designer Winter Katrai",
-    cat: "Winter Suits",
-    price: 4095,
-    oldPrice: 6500,
-    img: "dress3.png.jpg",
-    desc: "Exquisite heavy winter katrai outfit tailored for a chic, graceful look, offering unmatched comfort and premium quality."
-  }
-];
+const PRODUCT = {
+  id: 1,
+  name: "Classic Winter Katrai Suit (3-Piece)",
+  price: 4095,
+  oldPrice: 6500,
+  images: ["dress1.png.jpg", "dress2.png.jpg", "dress3.png.jpg"],
+  desc: "Exquisite winter katrai digital printed & embroidered suit featuring premium fabric warmth, elegant texture, and graceful fall for a perfect festive look."
+};
 
 const PHONE = "923207204971";
-const cats = ["All", ...new Set(PRODUCTS.map(p => p.cat))];
-let active = "All";
 let cart = [];
+let currentSlide = 0;
 
 const fmt = n => "Rs. " + n.toLocaleString("en-PK");
 
 function render(){
-  document.getElementById("cats").innerHTML = cats.map(c =>
-    `<button class="${c===active?"on":""}" data-c="${c}">${c}</button>`).join("");
+  const off = Math.round((1 - PRODUCT.price/PRODUCT.oldPrice)*100);
+  
+  const slidesHtml = PRODUCT.images.map(img => 
+    `<div class="slide" style="background-image:url('${img}')"></div>`
+  ).join("");
+
+  const dotsHtml = PRODUCT.images.map((_, i) => 
+    `<span class="dot ${i === currentSlide ? 'active' : ''}" onclick="set
     
-  document.getElementById("grid").innerHTML = PRODUCTS
-    .filter(p => active==="All" || p.cat===active)
-    .map(p => {
-      const off = Math.round((1 - p.price/p.oldPrice)*100);
-      const bg = p.img ? `background-image:url('${p.img}')` : `background:#8A2A52`;
-      const directMsg = encodeURIComponent("Assalam o Alaikum, I want to order: " + p.name + " (" + fmt(p.price) + ")");
-      return `<div class="card">
-        <div class="img" style="${bg}"><span class="off">-${off}%</span></div>
-        <div class="info">
-          <h3>${p.name}</h3>
-          <div class="desc">${p.desc}</div>
-          <div class="price">${fmt(p.price)}<s>${fmt(p.oldPrice)}</s></div>
-          <div class="btn-actions">
-            <button class="add-to-cart" onclick="addToCart(${p.id})">Add to Cart</button>
-            <a class="order-direct" href="https://wa.me/${PHONE}?text=${directMsg}">Buy Now</a>
-          </div>
-        </div>
-      </div>`;
-    }).join("");
-}
-
-document.getElementById("cats").addEventListener("click", e => {
-  if(e.target.dataset.c){ active = e.target.dataset.c; render(); }
-});
-
-function addToCart(productId) {
-  const product = PRODUCTS.find(p => p.id === productId);
-  cart.push(product);
-  updateCartUI();
-  alert(product.name + " has been added to your cart!");
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-}
-
-function updateCartUI() {
-  document.getElementById("cart-count").innerText = cart.length;
-  const container = document.getElementById("cartItemsContainer");
-  
-  if (cart.length === 0) {
-    container.innerHTML = `<p style="text-align: center; color: #888;">Your cart is empty.</p>`;
-    document.getElementById("cartTotal").innerText = fmt(0);
-    return;
-  }
-
-  let total = 0;
-  container.innerHTML = cart.map((item, index) => {
-    total += item.price;
-    return `<div class="cart-item">
-      <div class="cart-item-info">
-        <span class="cart-item-title">${item.name}</span>
-        <span class="cart-item-price">${fmt(item.price)}</span>
-      </div>
-      <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-    </div>`;
-  }).join("");
-
-  document.getElementById("cartTotal").innerText = fmt(total);
-}
-
-function toggleCart() {
-  const modal = document.getElementById("cartModal");
-  modal.classList.toggle("open");
-}
-
-function checkoutWhatsApp() {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  let message = "Assalam o Alaikum, I want to place an order for the following items:\n\n";
-  let total = 0;
-  
-  cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name} - ${fmt(item.price)}\n`;
-    total += item.price;
-  });
-
-  message += `\n*Total Amount:* ${fmt(total)}`;
-  
-  const encodedMsg = encodeURIComponent(message);
-  window.open(`https://wa.me/${PHONE}?text=${encodedMsg}`, '_blank');
-}
-
-render();
-</script>
-
-</body>
-</html>
