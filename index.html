@@ -2,186 +2,111 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Huraira Fatima Collection</title>
-<link rel="icon" href="logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#b8860b;--gold2:#d4a017;--pink:#f7c6d4;--pink2:#fde8ee;--dark:#3b2a10;--bg:#fffaf5}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--dark)}
-a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 2px 12px rgba(184,134,11,.15);display:flex;align-items:center;justify-content:space-between;padding:8px 5%}
-.brand{display:flex;align-items:center;gap:10px}
-.brand img{width:52px;height:52px;object-fit:contain}
-.brand b{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.05rem;line-height:1.1}
-.brand small{display:block;font-size:.6rem;letter-spacing:3px;color:var(--dark)}
-nav{display:flex;gap:22px;font-size:.9rem;font-weight:500}
-nav a:hover{color:var(--gold)}
-.menu-btn{display:none;background:none;border:0;font-size:1.7rem;color:var(--gold);cursor:pointer}
-.hero{background:linear-gradient(135deg,var(--pink2),#fff3d6);display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:20px;padding:50px 5%;text-align:center}
-.hero img{width:min(300px,70vw);filter:drop-shadow(0 8px 20px rgba(184,134,11,.3))}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.3rem);color:var(--gold);margin-bottom:10px}
-.hero p{max-width:440px;margin:0 auto 22px;color:#6b5a40}
-.btn{display:inline-block;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;padding:12px 28px;border-radius:30px;font-weight:500;border:0;cursor:pointer;font-size:.9rem;box-shadow:0 4px 14px rgba(184,134,11,.35);transition:.2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.wa{background:#25D366;box-shadow:0 4px 14px rgba(37,211,102,.35)}
-.btn.out{background:#fff;color:var(--gold);border:1.5px solid var(--gold);box-shadow:none}
-.banner{background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));color:#fff;text-align:center;padding:14px 5%;font-weight:500;letter-spacing:1px}
-section{padding:50px 5%}
-h2.title{font-family:'Playfair Display',serif;text-align:center;color:var(--gold);font-size:2rem;margin-bottom:6px}
-.sub{text-align:center;color:#8a7a5c;margin-bottom:28px;font-size:.9rem}
-.filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
-.filters button{padding:8px 20px;border-radius:25px;border:1.5px solid var(--gold);background:#fff;color:var(--gold);cursor:pointer;font-family:inherit;font-size:.85rem}
-.filters button.active{background:var(--gold);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
-.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.07);transition:.25s}
-.card:hover{transform:translateY(-5px);box-shadow:0 10px 26px rgba(184,134,11,.25)}
-.img{height:260px;background:linear-gradient(135deg,var(--pink2),#fff3d6);display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative}
-.img img{width:100%;height:100%;object-fit:cover}
-.tag{position:absolute;top:10px;left:10px;background:var(--gold);color:#fff;font-size:.7rem;padding:3px 10px;border-radius:12px}
-.info{padding:14px}
-.info h3{font-size:1rem;font-weight:500}
-.info .cat{font-size:.75rem;color:#9a8a6c;margin:2px 0 6px}
-.price{color:var(--gold);font-weight:600;font-size:1.1rem;margin-bottom:10px}
-.price s{color:#aaa;font-size:.8rem;font-weight:400;margin-left:6px}
-.acts{display:flex;gap:8px}
-.acts .btn{flex:1;padding:9px 6px;font-size:.78rem;text-align:center}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;background:var(--pink2)}
-.f{background:#fff;border-radius:14px;padding:22px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.05)}
-.f span{font-size:2rem}
-.f h4{margin:8px 0 4px;color:var(--gold)}
-.f p{font-size:.82rem;color:#7a6a4c}
-.about{max-width:760px;margin:auto;text-align:center;line-height:1.8;color:#6b5a40}
-.about img{width:130px;margin-bottom:12px}
-.contact{background:#fff;text-align:center}
-footer{background:var(--dark);color:#e8d9b5;text-align:center;padding:24px 5%;font-size:.85rem}
-.float-wa{position:fixed;right:16px;bottom:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:60;font-size:1.9rem;color:#fff}
-@media(max-width:700px){
- .menu-btn{display:block}
- nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:16px 5%;gap:14px;box-shadow:0 8px 14px rgba(0,0,0,.1)}
- nav.open{display:flex}
- .img{height:200px}
- .grid{grid-template-columns:repeat(2,1fr);gap:12px}
- .acts{flex-direction:column}
-}
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #faf9f6; color: #333; }
+  header { background: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+  header h1 { margin: 0; font-size: 24px; color: #4a2c2a; letter-spacing: 1px; }
+  .cats { display: flex; justify-content: center; gap: 10px; padding: 15px; background: #fff; overflow-x: auto; border-bottom: 1px solid #eee; }
+  .cats button { background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.3s; }
+  .cats button.on { background: #4a2c2a; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-5px); }
+  .img { height: 320px; background-size: cover; background-position: center; position: relative; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; }
+  .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }
+  .info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
+  .info h3 { margin: 0 0 8px 0; font-size: 18px; color: #222; }
+  .desc { font-size: 13px; color: #666; margin-bottom: 12px; line-height: 1.4; }
+  .price { font-size: 16px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+  .price s { font-size: 13px; color: #888; font-weight: normal; }
+  .order { margin-top: auto; background: #25d366; color: #fff; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: background 0.2s; }
+  .order:hover { background: #1ebe5d; }
+  footer { text-align: center; padding: 30px; background: #fff; border-top: 1px solid #eee; margin-top: 40px; color: #555; }
+  footer a { color: #25d366; text-decoration: none; font-weight: bold; }
+  .float { position: fixed; width: 60px; height: 60px; bottom: 25px; right: 25px; background-color: #25d366; color: #fff; border-radius: 50px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 100; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
 
 <header>
-  <a href="#home" class="brand">
-    <img src="logo.png" alt="Logo">
-    <div><b>Huraira Fatima</b><small>COLLECTION</small></div>
-  </a>
-  <button class="menu-btn" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
-  <nav id="nav" onclick="this.classList.remove('open')">
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <h1>Huraira Fatima Collection</h1>
 </header>
 
-<div class="hero" id="home">
-  <div>
-    <h1>Huraira Fatima Collection</h1>
-    <p>Elegant, stylish aur affordable kapray — har mauqe ke liye. Order karein seedha WhatsApp par!</p>
-    <a href="#shop" class="btn">Shop Now</a>
-    <a href="logo.png" download="Huraira-Fatima-Logo.png" class="btn out">⬇ Logo Download</a>
-  </div>
-  <img src="logo.png" alt="Huraira Fatima Collection Logo">
-</div>
+<div class="cats" id="cats"></div>
+<div class="grid" id="grid"></div>
 
-<div class="banner">✨ New Collection Available • Cash on Delivery • Order on WhatsApp ✨</div>
+<footer id="contact">
+  <p>Huraira Fatima Collection</p>
+  <p style="margin-top:6px">WhatsApp: <a href="https://wa.me/923207204971">+92 320 7204971</a></p>
+</footer>
 
-<section id="shop">
-  <h2 class="title">Our Collection</h2>
-  <p class="sub">Apni pasand ka design chunein aur WhatsApp par order karein</p>
-  <div class="filters" id="filters"></div>
-  <div class="grid" id="grid"></div>
-</section>
-
-<section class="features">
-  <div class="f"><span>🚚</span><h4>Delivery</h4><p>Poore Pakistan mein delivery</p></div>
-  <div class="f"><span>💵</span><h4>Cash on Delivery</h4><p>Ghar baithe payment karein</p></div>
-  <div class="f"><span>🧵</span><h4>Quality Fabric</h4><p>Behtareen kapray ki guarantee</p></div>
-  <div class="f"><span>💬</span><h4>WhatsApp Support</h4><p>Hum hamesha available hain</p></div>
-</section>
-
-<section id="about">
-  <div class="about">
-    <img src="logo.png" alt="">
-    <h2 class="title">About Us</h2>
-    <p>Huraira Fatima Collection mein hum aapko har qism ke kapray — stitched, unstitched, party wear aur casual — behtareen quality aur munasib qeemat par dete hain. Hamara maqsad hai ke har khatoon khoobsurat aur confident mehsoos kare.</p>
-  </div>
-</section>
-
-<section class="contact" id="contact">
-  <h2 class="title">Contact Us</h2>
-  <p class="sub">Order ya kisi bhi sawal ke liye rabta karein</p>
-  <p style="margin-bottom:18px;font-size:1.1rem">📞 +92 320 7204971</p>
-  <a class="btn wa" id="contactWa" target="_blank">💬 WhatsApp Par Message Karein</a>
-</section>
-
-<footer>© <span id="yr"></span> Huraira Fatima Collection. All rights reserved.</footer>
-
-<a class="float-wa" id="floatWa" target="_blank" aria-label="WhatsApp">💬</a>
+<a class="float" href="https://wa.me/923207204971" aria-label="Chat on WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.200c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.7 1.100 1.500 1.900 2.700 2.500.3.200.5.100.7-.1l.8-1c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.300z"/></svg>
+</a>
 
 <script>
-/* ====== SETTINGS ====== */
-const WHATSAPP = "923207204971";   // +92 320 7204971
-
-/* ====== PRODUCTS ======
-   Nayi product add karne ke liye ek line copy karke edit karein.
-   img: apni picture ka naam (jaise "suit1.jpg"). Khali chor dein to emoji nazar aayega. */
-const products = [
-  {name:"Embroidered Lawn Suit",  cat:"Unstitched", price:3500, old:4200, tag:"New", img:"", icon:"👗"},
-  {name:"Chiffon Party Wear",     cat:"Party Wear", price:6500, old:7500, tag:"Hot", img:"", icon:"💃"},
-  {name:"Cotton Printed 3-Piece", cat:"Stitched",   price:2800, old:0,    tag:"",    img:"", icon:"👚"},
-  {name:"Bridal Formal Dress",    cat:"Party Wear", price:14500,old:16000,tag:"Sale",img:"", icon:"👰"},
-  {name:"Casual Kurti",           cat:"Stitched",   price:1800, old:0,    tag:"",    img:"", icon:"👘"},
-  {name:"Khaddar Winter Suit",    cat:"Unstitched", price:4200, old:4800, tag:"New", img:"", icon:"🧥"},
-  {name:"Printed Dupatta",        cat:"Accessories",price:900,  old:0,    tag:"",    img:"", icon:"🧣"},
-  {name:"Kids Frock",             cat:"Kids",       price:2200, old:2600, tag:"Sale",img:"", icon:"🎀"}
+const PRODUCTS = [
+  {
+    name: "Classic Winter Katrai Suit",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress",
+    desc: "Premium quality winter katrai suit featuring exquisite warmth and elegant texture, perfect for cold weather styling."
+  },
+  {
+    name: "Luxury Winter Katrai Collection",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress pic",
+    desc: "Sophisticated fine-grade katrai fabric designed with a graceful fall, combining cozy winter comfort with rich aesthetic appeal."
+  },
+  {
+    name: "Royal Designer Winter Katrai",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress girl",
+    desc: "Exquisite heavy winter katrai outfit tailored for a chic, graceful look, offering unmatched comfort and premium quality."
+  }
 ];
-/* ======================= */
 
+const PHONE = "923207204971";
+const cats = ["All", ...new Set(PRODUCTS.map(p => p.cat))];
+let active = "All";
 const fmt = n => "Rs. " + n.toLocaleString("en-PK");
-const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
-let current = "All";
 
-function renderFilters(){
-  const cats = ["All", ...new Set(products.map(p=>p.cat))];
-  document.getElementById("filters").innerHTML = cats.map(c =>
-    `<button class="${c===current?'active':''}" onclick="setCat('${c}')">${c}</button>`).join("");
-}
-function setCat(c){current=c;renderFilters();renderProducts();}
-
-function renderProducts(){
-  const list = products.filter(p => current==="All" || p.cat===current);
-  document.getElementById("grid").innerHTML = list.map(p => {
-    const msg = `Assalam o Alaikum! Mujhe "${p.name}" (${fmt(p.price)}) order karna hai. Huraira Fatima Collection`;
-    const image = p.img
-      ? `<img src="${p.img}" alt="${p.name}" onerror="this.parentNode.innerHTML='${p.icon}'">`
-      : p.icon;
-    const dl = p.img ? `<a class="btn out" href="${p.img}" download>⬇ Download</a>` : "";
-    return `<div class="card">
-      <div class="img">${p.tag?`<span class="tag">${p.tag}</span>`:""}${image}</div>
-      <div class="info">
-        <h3>${p.name}</h3><div class="cat">${p.cat}</div>
-        <div class="price">${fmt(p.price)}${p.old?`<s>${fmt(p.old)}</s>`:""}</div>
-        <div class="acts"><a class="btn wa" target="_blank" href="${waLink(msg)}">Order Now</a>${dl}</div>
-      </div></div>`;
-  }).join("");
+function render(){
+  document.getElementById("cats").innerHTML = cats.map(c =>
+    `<button class="${c===active?"on":""}" data-c="${c}">${c}</button>`).join("");
+    
+  document.getElementById("grid").innerHTML = PRODUCTS
+    .filter(p => active==="All" || p.cat===active)
+    .map(p => {
+      const off = Math.round((1 - p.price/p.oldPrice)*100);
+      const bg = p.img ? `background-image:url('${p.img}')` : `background:#8A2A52`;
+      const msg = encodeURIComponent("Assalam o Alaikum, I want to order: " + p.name + " (" + fmt(p.price) + ")");
+      return `<div class="card">
+        <div class="img" style="${bg}"><span class="off">-${off}%</span></div>
+        <div class="info">
+          <h3>${p.name}</h3>
+          <div class="desc">${p.desc}</div>
+          <div class="price">${fmt(p.price)}<s>${fmt(p.oldPrice)}</s></div>
+          <a class="order" href="https://wa.me/${PHONE}?text=${msg}">Order on WhatsApp</a>
+        </div>
+      </div>`;
+    }).join("");
 }
 
-const hello = waLink("Assalam o Alaikum! Huraira Fatima Collection ke baare mein maloomat chahiye.");
-document.getElementById("contactWa").href = hello;
-document.getElementById("floatWa").href = hello;
-document.getElementById("yr").textContent = new Date().getFullYear();
-renderFilters(); renderProducts();
+document.getElementById("cats").addEventListener("click", e => {
+  if(e.target.dataset.c){ active = e.target.dataset.c; render(); }
+});
+
+render();
 </script>
+
 </body>
 </html>
