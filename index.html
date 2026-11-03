@@ -12,13 +12,11 @@
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 25px; max-width: 1000px; margin: auto; }
   .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
   
-  /* Image Slider Styles */
   .slider-container { position: relative; height: 380px; background: #e5e5e5; overflow: hidden; }
   .slider-track { display: flex; height: 100%; transition: transform 0.4s ease-in-out; }
   .slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; }
   .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; z-index: 2; }
   
-  /* Slider Dots */
   .slider-dots { position: absolute; bottom: 12px; width: 100%; display: flex; justify-content: center; gap: 6px; z-index: 2; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: 0.3s; }
   .dot.active { background: #fff; width: 20px; border-radius: 4px; }
@@ -29,12 +27,9 @@
   .price { font-size: 18px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
   .price s { font-size: 13px; color: #888; font-weight: normal; }
   .btn-actions { display: flex; gap: 10px; margin-top: auto; }
-  .add-to-cart { flex: 1; background: #4a2c2a; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.2s; }
-  .add-to-cart:hover { background: #331d1b; }
-  .order-direct { flex: 1; background: #25d366; color: #fff; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
-  .order-direct:hover { background: #1ebe5d; }
+  .add-to-cart { flex: 1; background: #4a2c2a; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
+  .order-direct { flex: 1; background: #25d366; color: #fff; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; }
   
-  /* Cart Modal */
   .modal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
   .modal-bg.open { display: flex; }
   .modal { background: #fff; width: 90%; max-width: 450px; border-radius: 12px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); max-height: 80vh; display: flex; flex-direction: column; }
@@ -64,7 +59,6 @@
 
 <div class="grid" id="grid"></div>
 
-<!-- Cart Modal -->
 <div class="modal-bg" id="cartModal">
   <div class="modal">
     <div class="modal-header">
@@ -113,5 +107,94 @@ function render(){
   ).join("");
 
   const dotsHtml = PRODUCT.images.map((_, i) => 
-    `<span class="dot ${i === currentSlide ? 'active' : ''}" onclick="set
-    
+    `<span class="dot ${i === currentSlide ? 'active' : ''}" onclick="setSlide(${i})"></span>`
+  ).join("");
+
+  const directMsg = encodeURIComponent("Assalam o Alaikum, I want to order: " + PRODUCT.name + " (" + fmt(PRODUCT.price) + ")");
+
+  document.getElementById("grid").innerHTML = `
+    <div class="card">
+      <div class="slider-container">
+        <span class="off">-${off}%</span>
+        <div class="slider-track" id="sliderTrack" style="transform: translateX(-${currentSlide * 100}%)">
+          ${slidesHtml}
+        </div>
+        <div class="slider-dots">
+          ${dotsHtml}
+        </div>
+      </div>
+      <div class="info">
+        <h3>${PRODUCT.name}</h3>
+        <div class="desc">${PRODUCT.desc}</div>
+        <div class="price">${fmt(PRODUCT.price)} <s>${fmt(PRODUCT.oldPrice)}</s></div>
+        <div class="btn-actions">
+          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+          <a class="order-direct" href="https://wa.me/${PHONE}?text=${directMsg}">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function setSlide(index) {
+  currentSlide = index;
+  render();
+}
+
+function addToCart() {
+  cart.push(PRODUCT);
+  updateCartUI();
+  alert(PRODUCT.name + " has been added to your cart!");
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  document.getElementById("cart-count").innerText = cart.length;
+  const container = document.getElementById("cartItemsContainer");
+  
+  if (cart.length === 0) {
+    container.innerHTML = `<p style="text-align: center; color: #888;">Your cart is empty.</p>`;
+    document.getElementById("cartTotal").innerText = fmt(0);
+    return;
+  }
+
+  let total = 0;
+  container.innerHTML = cart.map((item, index) => {
+    total += item.price;
+    return `<div class="cart-item">
+      <div class="cart-item-info">
+        <span class="cart-item-title">${item.name}</span>
+        <span class="cart-item-price">${fmt(item.price)}</span>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+    </div>`;
+  }).join("");
+
+  document.getElementById("cartTotal").innerText = fmt(total);
+}
+
+function toggleCart() {
+  const modal = document.getElementById("cartModal");
+  modal.classList.toggle("open");
+}
+
+function checkoutWhatsApp() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  let message = "Assalam o Alaikum, I want to place an order:\n\n1. " + PRODUCT.name + " - " + fmt(PRODUCT.price) + "\n\n*Total Amount:* " + fmt(PRODUCT.price);
+  const encodedMsg = encodeURIComponent(message);
+  window.open(`https://wa.me/${PHONE}?text=${encodedMsg}`, '_blank');
+}
+
+render();
+</script>
+
+</body>
+</html>
