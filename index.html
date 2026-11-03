@@ -6,192 +6,104 @@
 <title>Huraira Fatima Collection</title>
 <style>
   body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #faf9f6; color: #333; }
-  header { background: #fff; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
-  header h1 { margin: 0; font-size: 22px; color: #4a2c2a; letter-spacing: 1px; }
-  .cart-btn { background: #4a2c2a; color: #fff; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 6px; font-weight: bold; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 25px; max-width: 1000px; margin: auto; }
-  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-  
-  .slider-container { position: relative; height: 380px; background: #e5e5e5; overflow: hidden; }
-  .slider-track { display: flex; height: 100%; transition: transform 0.4s ease-in-out; }
-  .slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; }
-  .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; z-index: 2; }
-  
-  .slider-dots { position: absolute; bottom: 12px; width: 100%; display: flex; justify-content: center; gap: 6px; z-index: 2; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.6); cursor: pointer; transition: 0.3s; }
-  .dot.active { background: #fff; width: 20px; border-radius: 4px; }
-
-  .info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+  header { background: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eee; }
+  header h1 { margin: 0; font-size: 24px; color: #4a2c2a; letter-spacing: 1px; }
+  .cats { display: flex; justify-content: center; gap: 10px; padding: 15px; background: #fff; overflow-x: auto; border-bottom: 1px solid #eee; }
+  .cats button { background: #f0f0f0; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.3s; }
+  .cats button.on { background: #4a2c2a; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-5px); }
+  .img { height: 320px; background-size: cover; background-position: center; position: relative; background-color: #e5e5e5; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; }
+  .off { position: absolute; top: 10px; left: 10px; background: #d9534f; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; font-weight: bold; }
+  .info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
   .info h3 { margin: 0 0 8px 0; font-size: 18px; color: #222; }
   .desc { font-size: 13px; color: #666; margin-bottom: 12px; line-height: 1.4; }
-  .price { font-size: 18px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+  .price { font-size: 16px; font-weight: bold; color: #b12704; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
   .price s { font-size: 13px; color: #888; font-weight: normal; }
-  .btn-actions { display: flex; gap: 10px; margin-top: auto; }
-  .add-to-cart { flex: 1; background: #4a2c2a; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
-  .order-direct { flex: 1; background: #25d366; color: #fff; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-  
-  .modal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
-  .modal-bg.open { display: flex; }
-  .modal { background: #fff; width: 90%; max-width: 450px; border-radius: 12px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); max-height: 80vh; display: flex; flex-direction: column; }
-  .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-  .modal-header h2 { margin: 0; font-size: 18px; color: #4a2c2a; }
-  .close-modal { background: none; border: none; font-size: 20px; cursor: pointer; color: #888; }
-  .cart-items { overflow-y: auto; flex-grow: 1; margin-bottom: 15px; max-height: 250px; }
-  .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 14px; }
-  .cart-item-info { display: flex; flex-direction: column; }
-  .cart-item-title { font-weight: bold; color: #333; }
-  .cart-item-price { color: #b12704; font-size: 13px; }
-  .remove-btn { background: #ff4d4d; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-  .modal-footer { border-top: 1px solid #eee; padding-top: 15px; display: flex; flex-direction: column; gap: 10px; }
-  .total-price { display: flex; justify-content: space-between; font-size: 16px; font-weight: bold; }
-  .checkout-btn { background: #25d366; color: #fff; border: none; text-align: center; padding: 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 15px; cursor: pointer; }
-  
+  .order { margin-top: auto; background: #25d366; color: #fff; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; transition: background 0.2s; }
+  .order:hover { background: #1ebe5d; }
   footer { text-align: center; padding: 30px; background: #fff; border-top: 1px solid #eee; margin-top: 40px; color: #555; }
   footer a { color: #25d366; text-decoration: none; font-weight: bold; }
+  .float { position: fixed; width: 60px; height: 60px; bottom: 25px; right: 25px; background-color: #25d366; color: #fff; border-radius: 50px; text-align: center; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 100; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Huraira Fatima Collection</h1>
-  <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
 </header>
 
+<div class="cats" id="cats"></div>
 <div class="grid" id="grid"></div>
-
-<div class="modal-bg" id="cartModal">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>Your Shopping Cart</h2>
-      <button class="close-modal" onclick="toggleCart()">&times;</button>
-    </div>
-    <div class="cart-items" id="cartItemsContainer">
-      <p style="text-align: center; color: #888;">Your cart is empty.</p>
-    </div>
-    <div class="modal-footer">
-      <div class="total-price">
-        <span>Total:</span>
-        <span id="cartTotal">Rs. 0</span>
-      </div>
-      <button class="checkout-btn" onclick="checkoutWhatsApp()">Checkout on WhatsApp</button>
-    </div>
-  </div>
-</div>
 
 <footer id="contact">
   <p>Huraira Fatima Collection</p>
   <p style="margin-top:6px">WhatsApp: <a href="https://wa.me/923207204971">+92 320 7204971</a></p>
 </footer>
 
+<a class="float" href="https://wa.me/923207204971" aria-label="Chat on WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.2 14c-.2.6-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.100-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.200c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.7 1.100 1.500 1.900 2.700 2.500.3.200.5.100.7-.1l.8-1c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.300z"/></svg>
+</a>
+
 <script>
-const PRODUCT = {
-  id: 1,
-  name: "Classic Winter Katrai Suit (3-Piece)",
-  price: 4095,
-  oldPrice: 6500,
-  images: ["dress1.png.jpg", "dress2.png.jpg", "dress3.png.jpg"],
-  desc: "Exquisite winter katrai digital printed & embroidered suit featuring premium fabric warmth, elegant texture, and graceful fall for a perfect festive look."
-};
+const PRODUCTS = [
+  {
+    name: "Classic Winter Katrai Suit",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress",
+    desc: "Premium quality winter katrai suit featuring exquisite warmth and elegant texture, perfect for cold weather styling."
+  },
+  {
+    name: "Luxury Winter Katrai Collection",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress pic",
+    desc: "Sophisticated fine-grade katrai fabric designed with a graceful fall, combining cozy winter comfort with rich aesthetic appeal."
+  },
+  {
+    name: "Royal Designer Winter Katrai",
+    cat: "Winter Suits",
+    price: 4095,
+    oldPrice: 6500,
+    img: "first dress girl",
+    desc: "Exquisite heavy winter katrai outfit tailored for a chic, graceful look, offering unmatched comfort and premium quality."
+  }
+];
 
 const PHONE = "923207204971";
-let cart = [];
-let currentSlide = 0;
-
+const cats = ["All", ...new Set(PRODUCTS.map(p => p.cat))];
+let active = "All";
 const fmt = n => "Rs. " + n.toLocaleString("en-PK");
 
 function render(){
-  const off = Math.round((1 - PRODUCT.price/PRODUCT.oldPrice)*100);
-  
-  const slidesHtml = PRODUCT.images.map(img => 
-    `<div class="slide" style="background-image:url('${img}')"></div>`
-  ).join("");
-
-  const dotsHtml = PRODUCT.images.map((_, i) => 
-    `<span class="dot ${i === currentSlide ? 'active' : ''}" onclick="setSlide(${i})"></span>`
-  ).join("");
-
-  const directMsg = encodeURIComponent("Assalam o Alaikum, I want to order: " + PRODUCT.name + " (" + fmt(PRODUCT.price) + ")");
-
-  document.getElementById("grid").innerHTML = `
-    <div class="card">
-      <div class="slider-container">
-        <span class="off">-${off}%</span>
-        <div class="slider-track" id="sliderTrack" style="transform: translateX(-${currentSlide * 100}%)">
-          ${slidesHtml}
+  document.getElementById("cats").innerHTML = cats.map(c =>
+    `<button class="${c===active?"on":""}" data-c="${c}">${c}</button>`).join("");
+    
+  document.getElementById("grid").innerHTML = PRODUCTS
+    .filter(p => active==="All" || p.cat===active)
+    .map(p => {
+      const off = Math.round((1 - p.price/p.oldPrice)*100);
+      const bg = p.img ? `background-image:url('${p.img}')` : `background:#8A2A52`;
+      const msg = encodeURIComponent("Assalam o Alaikum, I want to order: " + p.name + " (" + fmt(p.price) + ")");
+      return `<div class="card">
+        <div class="img" style="${bg}"><span class="off">-${off}%</span></div>
+        <div class="info">
+          <h3>${p.name}</h3>
+          <div class="desc">${p.desc}</div>
+          <div class="price">${fmt(p.price)}<s>${fmt(p.oldPrice)}</s></div>
+          <a class="order" href="https://wa.me/${PHONE}?text=${msg}">Order on WhatsApp</a>
         </div>
-        <div class="slider-dots">
-          ${dotsHtml}
-        </div>
-      </div>
-      <div class="info">
-        <h3>${PRODUCT.name}</h3>
-        <div class="desc">${PRODUCT.desc}</div>
-        <div class="price">${fmt(PRODUCT.price)} <s>${fmt(PRODUCT.oldPrice)}</s></div>
-        <div class="btn-actions">
-          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
-          <a class="order-direct" href="https://wa.me/${PHONE}?text=${directMsg}">Buy Now</a>
-        </div>
-      </div>
-    </div>
-  `;
+      </div>`;
+    }).join("");
 }
 
-function setSlide(index) {
-  currentSlide = index;
-  render();
-}
-
-function addToCart() {
-  cart.push(PRODUCT);
-  updateCartUI();
-  alert(PRODUCT.name + " has been added to your cart!");
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-}
-
-function updateCartUI() {
-  document.getElementById("cart-count").innerText = cart.length;
-  const container = document.getElementById("cartItemsContainer");
-  
-  if (cart.length === 0) {
-    container.innerHTML = `<p style="text-align: center; color: #888;">Your cart is empty.</p>`;
-    document.getElementById("cartTotal").innerText = fmt(0);
-    return;
-  }
-
-  let total = 0;
-  container.innerHTML = cart.map((item, index) => {
-    total += item.price;
-    return `<div class="cart-item">
-      <div class="cart-item-info">
-        <span class="cart-item-title">${item.name}</span>
-        <span class="cart-item-price">${fmt(item.price)}</span>
-      </div>
-      <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-    </div>`;
-  }).join("");
-
-  document.getElementById("cartTotal").innerText = fmt(total);
-}
-
-function toggleCart() {
-  const modal = document.getElementById("cartModal");
-  modal.classList.toggle("open");
-}
-
-function checkoutWhatsApp() {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  let message = "Assalam o Alaikum, I want to place an order:\n\n1. " + PRODUCT.name + " - " + fmt(PRODUCT.price) + "\n\n*Total Amount:* " + fmt(PRODUCT.price);
-  const encodedMsg = encodeURIComponent(message);
-  window.open(`https://wa.me/${PHONE}?text=${encodedMsg}`, '_blank');
-}
+document.getElementById("cats").addEventListener("click", e => {
+  if(e.target.dataset.c){ active = e.target.dataset.c; render(); }
+});
 
 render();
 </script>
